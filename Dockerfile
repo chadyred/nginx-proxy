@@ -1,13 +1,8 @@
-FROM armhf/alpine:latest
+FROM nginx:1.11.8-alpine
 MAINTAINER BrainGamer florian.gebhardt@gmx.de
 
-# Install Nginx.
-RUN apk update && \
-  apk add nginx && \
-  mkdir -p /run/nginx
-
 # Install wget, bash and certificates
-RUN apk add \
+RUN apk add --update \
     wget \
     bash \
     ca-certificates
