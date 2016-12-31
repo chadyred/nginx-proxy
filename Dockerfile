@@ -1,8 +1,13 @@
-FROM nginx:1.11.8-alpine
+FROM armhf/alpine:latest
 MAINTAINER BrainGamer florian.gebhardt@gmx.de
+# Install Nginx.
+RUN apk add --update \
+  nginx && \
+  mkdir -p /run/nginx && \
+  rm -rf /var/lib/nginx/html
 
 # Install wget, bash and certificates
-RUN apk add --update \
+RUN apk add \
     wget \
     bash \
     ca-certificates
@@ -11,8 +16,8 @@ RUN apk add --update \
 RUN rm -rf /var/cache/apk/*
 
 # Configure Nginx and apply fix for very long server names
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf \
- && sed -i 's/^http {/&\n    server_names_hash_bucket_size 128;/g' /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
+#RUN sed -i 's/^http {/&\n    server_names_hash_bucket_size 128;/g' /etc/nginx/nginx.conf
 
 # Install Forego
 ADD https://github.com/djmaze/armhf-forego/releases/download/v0.16.1/forego /usr/local/bin/forego
