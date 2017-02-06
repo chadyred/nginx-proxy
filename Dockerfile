@@ -1,5 +1,5 @@
 FROM armhf/alpine:latest
-MAINTAINER BrainGamer florian.gebhardt@gmx.de
+MAINTAINER BrainGamer
 
 ENV DOCKER_GEN_VERSION 0.7.3
 ENV NGINX_VERSION 1.10.2
